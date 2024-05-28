@@ -1,7 +1,9 @@
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import filedialog
 import datetime as dt
 import sqlite3
+import csv
 
 
 # Função para fechar a janela atual
@@ -140,13 +142,33 @@ def exibir_resultados(termo_pesquisa):
     botao_fechar = tk.Button(resultados_window, text='Fechar', command=lambda: fechar_janela(resultados_window))
     botao_fechar.pack()
 
+def salvar_csv():
+    # Abrir uma caixa de diálogo para selecionar o local de salvamento
+    filename = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("Arquivos CSV", "*.csv")])
+    if filename:
+        # Conectar ao banco de dados
+        conn = sqlite3.connect('biblioteca.db')
+        c = conn.cursor()
+        
+        # Consultar o banco de dados para obter os dados dos livros
+        c.execute("SELECT * FROM livros")
+        dados_livros = c.fetchall()
+        
+        # Escrever os dados CSV no arquivo selecionado
+        with open(filename, 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(["Código", "Título", "Autor", "Quantidade", "Data de Criação"])
+            writer.writerows(dados_livros)
 
+        # Fechar a conexão com o banco de dados
+        conn.close()
+     
 def main_window():
     global principal
 
     principal = tk.Tk()
     principal.title('Biblioteca')
-
+    
     label_titulo = tk.Label(principal, text="SELECIONE A OPÇÃO DESEJADA")
     label_titulo.pack(pady=10)
 
@@ -155,6 +177,9 @@ def main_window():
 
     button_pesquisar = tk.Button(principal, text="PESQUISAR LIVRO", command=pesquisar_livro)
     button_pesquisar.pack(pady=5)
+
+    button_csv = tk.Button(principal, text="BAIXAR CSV", command=salvar_csv)
+    button_csv.pack(pady=5)
 
     principal.mainloop()
 
