@@ -178,7 +178,7 @@ def main_window():
     button_pesquisar = tk.Button(principal, text="PESQUISAR LIVRO", command=pesquisar_livro)
     button_pesquisar.pack(pady=5)
 
-    button_csv = tk.Button(principal, text="BAIXAR CSV", command=salvar_csv)
+    button_csv = tk.Button(principal, text="BAIXAR LISTA DE LIVROS CADASTRADOS (.csv)", command=salvar_csv)
     button_csv.pack(pady=5)
 
     principal.mainloop()
