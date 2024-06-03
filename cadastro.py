@@ -17,15 +17,9 @@ def voltar_janela(janela_atual, janela_anterior):
     janela_anterior.deiconify()
 
 
-def criar_tabela():
-    conn = sqlite3.connect('biblioteca.db')
-    c = conn.cursor()
-    conn.commit()
-    conn.close()
-
 def abrir_cadastro():
     global cadastro_window
-    cadastro_window = tk.Toplevel()  # Cria uma nova janela de nível superior para o cadastro
+    cadastro_window = tk.Toplevel()  # Cria uma janela de nível superior para o cadastro
     cadastro_window.title("Cadastro de Livro")
 
     # TÍTULO DO LIVRO
@@ -59,9 +53,6 @@ def abrir_cadastro():
     # BOTÃO FECHAR
     botao_fechar = tk.Button(cadastro_window, text='Fechar', command=lambda: fechar_janela(cadastro_window))
     botao_fechar.grid(row=7, column=4, padx=10, pady=10, sticky='nswe', columnspan=6)
-
-    # Atualizar a função principal ao fechar a janela de cadastro
-    cadastro_window.protocol("WM_DELETE_WINDOW", lambda: voltar_janela(cadastro_window, principal))
 
 def cadastrar_livro():
     global entry_livro, entry_autor, entry_qtd  # Tornando as entradas globais
@@ -99,7 +90,7 @@ def limpar_campos():
 
 
 def pesquisar_livro():
-    pesquisa_window = tk.Toplevel()  # Criar uma nova janela para pesquisa
+    pesquisa_window = tk.Toplevel()  # Cria nova janela para pesquisa
     pesquisa_window.title("Pesquisar Livro")
 
     # Label e Entry para o termo de pesquisa
@@ -182,7 +173,6 @@ def main_window():
     button_csv.pack(pady=5)
 
     principal.mainloop()
-
 
 # Chamando a função para exibir a janela principal
 main_window()
