@@ -158,7 +158,7 @@ def main_window():
     global principal
 
     principal = tk.Tk()
-    principal.title('Biblioteca')
+    principal.title('Meu acervo')
     
     label_titulo = tk.Label(principal, text="SELECIONE A OPÇÃO DESEJADA")
     label_titulo.pack(pady=10)
